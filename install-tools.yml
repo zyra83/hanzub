@@ -42,18 +42,17 @@
         state: directory
         mode: "0755"
 
-    - name: Installer la clé du dépôt Kubernetes
-      ansible.builtin.get_url:
-        url: https://pkgs.k8s.io/core:/stable:/{{ kubernetes_minor_version }}/deb/Release.key
-        dest: "{{ kubernetes_keyring }}"
-        mode: "0644"
-        force: true
 
-    - name: Ajouter le dépôt Kubernetes
-      ansible.builtin.apt_repository:
-        repo: "deb [signed-by={{ kubernetes_keyring }}] https://pkgs.k8s.io/core:/stable:/{{ kubernetes_minor_version }}/deb/ /"
-        filename: kubernetes
+    - name: Update Kubernetes Key
+      ansible.builtin.shell: 
+        curl -fsSL https://pkgs.k8s.io/core:/stable:/{{ kubernetes_minor_version }}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+    - name: Add Kubernetes APT repository
+      ansible.builtin.lineinfile:
+        path: /etc/apt/sources.list.d/kubernetes.list
+        line: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{ kubernetes_minor_version }}/deb/ /"
         state: present
+        create: yes
 
     - name: Installer la clé du dépôt Helm
       ansible.builtin.get_url:
