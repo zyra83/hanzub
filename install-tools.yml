@@ -1,0 +1,96 @@
+---
+- name: Installer les outils de développement Kubernetes
+  hosts: all
+  become: true
+  gather_facts: true
+
+  vars:
+    kubernetes_minor_version: "v1.34"
+    k9s_version: "v0.50.9"
+    minikube_version: "v1.37.0"
+    kubernetes_keyring: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+    helm_keyring: /etc/apt/keyrings/helm.gpg
+    binary_architecture: "{{ {'x86_64': 'amd64', 'aarch64': 'arm64'}[ansible_architecture] | default(ansible_architecture) }}"
+
+  pre_tasks:
+    - name: Vérifier que le système utilise APT
+      ansible.builtin.assert:
+        that:
+          - ansible_os_family == 'Debian'
+        fail_msg: "Ce playbook cible Ubuntu/Debian."
+
+    - name: Vérifier l'architecture supportée
+      ansible.builtin.assert:
+        that:
+          - binary_architecture in ['amd64', 'arm64']
+        fail_msg: "Architecture non supportée : {{ ansible_architecture }}."
+
+  tasks:
+    - name: Installer les prérequis APT
+      ansible.builtin.apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+        state: present
+        update_cache: true
+
+    - name: Créer le répertoire des clés APT
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: "0755"
+
+    - name: Installer la clé du dépôt Kubernetes
+      ansible.builtin.get_url:
+        url: https://pkgs.k8s.io/core:/stable:/{{ kubernetes_minor_version }}/deb/Release.key
+        dest: "{{ kubernetes_keyring }}"
+        mode: "0644"
+        force: true
+
+    - name: Ajouter le dépôt Kubernetes
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by={{ kubernetes_keyring }}] https://pkgs.k8s.io/core:/stable:/{{ kubernetes_minor_version }}/deb/ /"
+        filename: kubernetes
+        state: present
+
+    - name: Installer la clé du dépôt Helm
+      ansible.builtin.get_url:
+        url: https://packages.buildkite.com/helm-linux/helm-debian/anyか/Release.key
+        dest: "{{ helm_keyring }}"
+        mode: "0644"
+        force: true
+
+    - name: Ajouter le dépôt Helm
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by={{ helm_keyring }}] https://packages.buildkite.com/helm-linux/helm-debian/any/ any main"
+        filename: helm-stable-debian
+        state: present
+
+    - name: Installer les paquets système et Kubernetes
+      ansible.builtin.apt:
+        name:
+          - nano
+          - btop
+          - zsh
+          - kubectl
+          - helm
+        state: present
+        update_cache: true
+
+    - name: Installer K9s
+      ansible.builtin.unarchive:
+        src: "https://github.com/derailed/k9s/releases/download/{{ k9s_version }}/k9s_Linux_{{ binary_architecture }}.tar.gz"
+        dest: /usr/local/bin
+        remote_src: true
+        include:
+          - k9s
+        mode: "0755"
+
+    - name: Installer Minikube
+      ansible.builtin.get_url:
+        url: "https://storage.googleapis.com/minikube/releases/{{ minikube_version }}/minikube-linux-{{ binary_architecture }}"
+        dest: /usr/local/bin/minikube
+        mode: "0755"
+        force: true
