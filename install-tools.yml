@@ -42,46 +42,28 @@
         state: directory
         mode: "0755"
 
-
-    - name: Télécharger la clé GPG ASCII
-      ansible.builtin.get_url:
-        url: "https://pkgs.k8s.io/core:/stable:/{{ kubernetes_minor_version }}/deb/Release.key"
-        dest: "/tmp/cle_kube.asc"
-        mode: '0644'
-
-    - name: Convertir la clé au format binaire (dearmor)
-      ansible.builtin.shell: >
-        gpg --dearmor -o {{ kubernetes_keyring }} /tmp/cle_kube.asc
-      args:
-        creates: "{{ kubernetes_keyring }}"
-
-
-
     - name: Installer la clé du dépôt Kubernetes
       ansible.builtin.get_url:
-        url: https://pkgs.k8s.io/core:/stable:/{{ kubernetes_minor_version }}/deb/Release.key
-        dest: "{{ kubernetes_keyring }}"
-        mode: "0644"
-        force: true
+        url: "https://pkgs.k8s.io/core:/stable:/{{ kubernetes_minor_version }}/deb/Release.key"
+        dest: "/etc/apt/keyrings/kubernetes-apt-keyring.asc"
+        mode: '0644'
 
-
-    # Use armored file since utf-8 string is expected. Must be of "PGP PUBLIC KEY BLOCK" type.
-    - name: Installer la clé du dépôt Helm
-      ansible.builtin.apt_key:
-        url: https://packages.buildkite.com/helm-linux/helm-debian/any/Release.key
-        
+    - name: Add Kubernetes APT repository
+      ansible.builtin.lineinfile:
+        path: /etc/apt/sources.list.d/kubernetes.list
+        line: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.asc] https://pkgs.k8s.io/core:/stable:/{{ kubernetes_minor_version }}/deb/ /"
         state: present
+        create: true
 
-    # - name: Installer la clé du dépôt Helm
-    #   ansible.builtin.get_url:
-    #     url: https://packages.buildkite.com/helm-linux/helm-debian/any/Release.key
-    #     dest: "{{ helm_keyring }}"
-    #     mode: "0644"
-    #     force: true
+    - name: Installer la clé du dépôt Helm
+      ansible.builtin.get_url:
+        url: https://packages.buildkite.com/helm-linux/helm-debian/any/Release.key
+        dest: "/etc/apt/keyrings/helm.asc"
+        mode: '0644'
 
     - name: Ajouter le dépôt Helm
       ansible.builtin.apt_repository:
-        repo: "deb [signed-by={{ helm_keyring }}] https://packages.buildkite.com/helm-linux/helm-debian/any/ any main"
+        repo: "deb [signed-by=/etc/apt/keyrings/helm.asc] https://packages.buildkite.com/helm-linux/helm-debian/any/ any main"
         filename: helm-stable-debian
         state: present
 
