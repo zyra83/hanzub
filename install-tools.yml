@@ -57,7 +57,7 @@
 
     - name: Installer la clé du dépôt Helm
       ansible.builtin.get_url:
-        url: https://packages.buildkite.com/helm-linux/helm-debian/any/Release.key
+        url: https://packages.buildkite.com/helm-linux/helm-debian/gpgkey
         dest: "/etc/apt/keyrings/helm.asc"
         mode: '0644'
 
