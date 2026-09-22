@@ -55,6 +55,8 @@
       args:
         creates: "{{ kubernetes_keyring }}"
 
+
+
     - name: Installer la clé du dépôt Kubernetes
       ansible.builtin.get_url:
         url: https://pkgs.k8s.io/core:/stable:/{{ kubernetes_minor_version }}/deb/Release.key
@@ -62,12 +64,20 @@
         mode: "0644"
         force: true
 
+
+    # Use armored file since utf-8 string is expected. Must be of "PGP PUBLIC KEY BLOCK" type.
     - name: Installer la clé du dépôt Helm
-      ansible.builtin.get_url:
+      ansible.builtin.apt_key:
         url: https://packages.buildkite.com/helm-linux/helm-debian/any/Release.key
-        dest: "{{ helm_keyring }}"
-        mode: "0644"
-        force: true
+        
+        state: present
+
+    # - name: Installer la clé du dépôt Helm
+    #   ansible.builtin.get_url:
+    #     url: https://packages.buildkite.com/helm-linux/helm-debian/any/Release.key
+    #     dest: "{{ helm_keyring }}"
+    #     mode: "0644"
+    #     force: true
 
     - name: Ajouter le dépôt Helm
       ansible.builtin.apt_repository:
