@@ -93,3 +93,40 @@
         dest: /usr/local/bin/minikube
         mode: "0755"
         force: true
+
+    - name: Installer divers outils du travail quotidien
+      ansible.builtin.apt:
+        name:
+          - ncdu # afficher l'utilisation du disque
+          - htop # afficher l'utilisation du CPU et de la RAM
+          - btop # afficher l'utilisation du CPU et de la RAM
+          - zsh # shell alternatif
+          - git # gestionnaire de versions
+          - jq # outil de manipulation JSON
+          - wget # outil de téléchargement
+          - unzip # outil de décompression
+          - tar # outil de compression
+          - apt-transport-https # pour les dépôts APT via HTTPS
+          - gnupg # pour vérifier les signatures des paquets
+          - yq # outil de manipulation YAML
+          - ydiff # outil de comparaison YAML
+          - bat # outil de visualisation de fichiers, less sous stéroïdes
+        state: present
+        update_cache: true
+
+
+
+# argocd
+# cilium
+# dyff
+# gator
+# hauler
+# helm
+# jf
+# kind
+# kubectl
+# kubectl-argo-rollouts
+# minikube
+# ntfy
+# opa
+# yamlfmt
