@@ -25,96 +25,19 @@
           - binary_architecture in ['amd64', 'arm64']
         fail_msg: "Architecture non supportée : {{ ansible_architecture }}."
 
+  # Une liste de tâches par spec de doc/specs/, dans l'ordre des numéros.
   tasks:
-    - name: Installer les prérequis APT
-      ansible.builtin.apt:
-        name:
-          - apt-transport-https
-          - ca-certificates
-          - curl
-          - gnupg
-        state: present
-        update_cache: true
+    - name: Socle commun
+      ansible.builtin.import_tasks: tasks/00-prerequis.yml
 
-    - name: Créer le répertoire des clés APT
-      ansible.builtin.file:
-        path: /etc/apt/keyrings
-        state: directory
-        mode: "0755"
+    - name: Outils Kubernetes
+      ansible.builtin.import_tasks: tasks/01-outils-kubernetes.yml
 
-    - name: Installer la clé du dépôt Kubernetes
-      ansible.builtin.get_url:
-        url: "https://pkgs.k8s.io/core:/stable:/{{ kubernetes_minor_version }}/deb/Release.key"
-        dest: "/etc/apt/keyrings/kubernetes-apt-keyring.asc"
-        mode: '0644'
+    - name: Bureautique
+      ansible.builtin.import_tasks: tasks/02-bureautique.yml
 
-    - name: Add Kubernetes APT repository
-      ansible.builtin.lineinfile:
-        path: /etc/apt/sources.list.d/kubernetes.list
-        line: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.asc] https://pkgs.k8s.io/core:/stable:/{{ kubernetes_minor_version }}/deb/ /"
-        state: present
-        create: true
-
-    - name: Installer la clé du dépôt Helm
-      ansible.builtin.get_url:
-        url: https://packages.buildkite.com/helm-linux/helm-debian/gpgkey
-        dest: "/etc/apt/keyrings/helm.asc"
-        mode: '0644'
-
-    - name: Ajouter le dépôt Helm
-      ansible.builtin.apt_repository:
-        repo: "deb [signed-by=/etc/apt/keyrings/helm.asc] https://packages.buildkite.com/helm-linux/helm-debian/any/ any main"
-        filename: helm-stable-debian
-        state: present
-
-    - name: Installer les paquets système et Kubernetes
-      ansible.builtin.apt:
-        name:
-          - nano
-          - btop
-          - zsh
-          - kubectl
-          - helm
-        state: present
-        update_cache: true
-
-    - name: Installer K9s
-      ansible.builtin.unarchive:
-        src: "https://github.com/derailed/k9s/releases/download/{{ k9s_version }}/k9s_Linux_{{ binary_architecture }}.tar.gz"
-        dest: /usr/local/bin
-        remote_src: true
-        include:
-          - k9s
-        mode: "0755"
-
-    - name: Installer Minikube
-      ansible.builtin.get_url:
-        url: "https://storage.googleapis.com/minikube/releases/{{ minikube_version }}/minikube-linux-{{ binary_architecture }}"
-        dest: /usr/local/bin/minikube
-        mode: "0755"
-        force: true
-
-    - name: Installer divers outils du travail quotidien
-      ansible.builtin.apt:
-        name:
-          - ncdu # afficher l'utilisation du disque
-          - htop # afficher l'utilisation du CPU et de la RAM
-          - btop # afficher l'utilisation du CPU et de la RAM
-          - zsh # shell alternatif
-          - git # gestionnaire de versions
-          - jq # outil de manipulation JSON
-          - wget # outil de téléchargement
-          - unzip # outil de décompression
-          - tar # outil de compression
-          - apt-transport-https # pour les dépôts APT via HTTPS
-          - gnupg # pour vérifier les signatures des paquets
-          - yq # outil de manipulation YAML
-          - ydiff # outil de comparaison YAML
-          - bat # outil de visualisation de fichiers, less sous stéroïdes
-        state: present
-        update_cache: true
-
-
+    - name: Outils du quotidien
+      ansible.builtin.import_tasks: tasks/03-outils-quotidiens.yml
 
 # argocd
 # cilium

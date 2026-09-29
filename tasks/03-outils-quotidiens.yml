@@ -1,0 +1,23 @@
+---
+# Spec : doc/specs/03-outils-quotidiens.md
+- name: Installer divers outils du travail quotidien
+  ansible.builtin.apt:
+    name:
+      - nano # éditeur de texte
+      - ncdu # afficher l'utilisation du disque
+      - htop # afficher l'utilisation du CPU et de la RAM
+      - btop # afficher l'utilisation du CPU et de la RAM
+      - zsh # shell alternatif
+      - git # gestionnaire de versions
+      - jq # outil de manipulation JSON
+      - wget # outil de téléchargement
+      - unzip # outil de décompression
+      - tar # outil de compression
+      - apt-transport-https # pour les dépôts APT via HTTPS
+      - gnupg # pour vérifier les signatures des paquets
+      - yq # outil de manipulation YAML
+      - ydiff # outil de comparaison YAML
+      - bat # outil de visualisation de fichiers, less sous stéroïdes..
+      - musl # pour compiler des binaires statiques
+    state: present
+    update_cache: true

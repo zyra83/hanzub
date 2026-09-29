@@ -1,0 +1,18 @@
+---
+# Socle commun (pas de spec dédiée) : prérequis APT et répertoire des clés.
+# Inclus par install-tools.yml ; dépend des variables définies dans ce playbook.
+- name: Installer les prérequis APT
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg
+    state: present
+    update_cache: true
+
+- name: Créer le répertoire des clés APT
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"

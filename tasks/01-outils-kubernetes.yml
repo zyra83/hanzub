@@ -1,0 +1,50 @@
+---
+# Spec : doc/specs/01-outils-kubernetes.md
+- name: Installer la clé du dépôt Kubernetes
+  ansible.builtin.get_url:
+    url: "https://pkgs.k8s.io/core:/stable:/{{ kubernetes_minor_version }}/deb/Release.key"
+    dest: "/etc/apt/keyrings/kubernetes-apt-keyring.asc"
+    mode: '0644'
+
+- name: Add Kubernetes APT repository
+  ansible.builtin.lineinfile:
+    path: /etc/apt/sources.list.d/kubernetes.list
+    line: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.asc] https://pkgs.k8s.io/core:/stable:/{{ kubernetes_minor_version }}/deb/ /"
+    state: present
+    create: true
+
+- name: Installer la clé du dépôt Helm
+  ansible.builtin.get_url:
+    url: https://packages.buildkite.com/helm-linux/helm-debian/gpgkey
+    dest: "/etc/apt/keyrings/helm.asc"
+    mode: '0644'
+
+- name: Ajouter le dépôt Helm
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/helm.asc] https://packages.buildkite.com/helm-linux/helm-debian/any/ any main"
+    filename: helm-stable-debian
+    state: present
+
+- name: Installer kubectl et helm
+  ansible.builtin.apt:
+    name:
+      - kubectl
+      - helm
+    state: present
+    update_cache: true
+
+- name: Installer K9s
+  ansible.builtin.unarchive:
+    src: "https://github.com/derailed/k9s/releases/download/{{ k9s_version }}/k9s_Linux_{{ binary_architecture }}.tar.gz"
+    dest: /usr/local/bin
+    remote_src: true
+    include:
+      - k9s
+    mode: "0755"
+
+- name: Installer Minikube
+  ansible.builtin.get_url:
+    url: "https://storage.googleapis.com/minikube/releases/{{ minikube_version }}/minikube-linux-{{ binary_architecture }}"
+    dest: /usr/local/bin/minikube
+    mode: "0755"
+    force: true
