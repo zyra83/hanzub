@@ -69,7 +69,7 @@ architecture) qui appelle des listes de tâches via `ansible.builtin.import_task
   ne jamais coder une version en dur dans une tâche.
 - Architecture via `binary_architecture` (amd64/arm64) pour les binaires téléchargés.
 - Binaires installés dans `/usr/local/bin` avec mode `0755`.
-- Clés APT dans `/etc/apt/keyrings/*.asc` + `signed-by=` dans la source (pas de `apt-key`, pas de dearmor). Exception : le PPA Mozilla, géré par `apt_repository`.
+- Clés APT dans `/etc/apt/keyrings/*.asc` + `signed-by=` dans la source (pas de `apt-key`, pas de dearmor).
 - Le playbook doit rester idempotent : relancé deux fois, 0 `changed` la 2e fois
   (attention à `force: true` sur minikube qui retélécharge à chaque run).
 - Commentaire inline pour chaque paquet de `tasks/03-outils-quotidiens.yml`.

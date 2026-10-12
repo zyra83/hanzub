@@ -18,16 +18,17 @@ d'un client mail et d'un navigateur, en français. Thunderbird et Firefox sont i
 
 ## Contraintes d'installation
 - APT uniquement une fois les snaps retirés : pas de snap ni de Flatpak pour ces outils.
-- Cible : Ubuntu Desktop (environnement graphique présent). Sur un système sans bureau,
-  ces tâches ne doivent pas être exécutées.
+- Cible : Ubuntu Desktop uniquement (environnement graphique toujours présent, aucune détection).
 - Non interactif, en root, sous `ansible-pull` (voir `CLAUDE.md`).
 - Idempotent : 2e exécution à 0 `changed`.
 
 ## Ordre des opérations (important)
 Ubuntu installe Firefox et Thunderbird en snap d'office. Dans `tasks/02-bureautique.yml` :
-0. **Garde** : n'exécuter que sur un poste avec bureau (`/usr/share/wayland-sessions` ou
-   `/usr/share/xsessions` présent) et sous Ubuntu ; sinon, ignorer (bureau absent) ou échouer (pas Ubuntu).
-1. **Ajouter le PPA** `ppa:mozillateam/ppa` (`ansible.builtin.apt_repository`).
+0. **Garde** : échouer si le système n'est pas Ubuntu.
+1. **Ajouter le PPA** Mozilla Team : clé téléchargée en HTTPS depuis keyserver.ubuntu.com dans
+   `/etc/apt/keyrings/mozillateam.asc` (empreinte `738BEB93…9BE21867`), puis source
+   `deb [signed-by=…] https://ppa.launchpadcontent.net/mozillateam/ppa/ubuntu <codename> main`
+   (`ansible.builtin.apt_repository`). Pas de `ppa:` ni de `gpg --keyserver` (échoue sur Ubuntu 26.04).
 2. **Poser une préférence APT** `/etc/apt/preferences.d/mozilla-ppa` :
    `Package: firefox* thunderbird*`, `Pin: release o=LP-PPA-mozillateam`, `Pin-Priority: 1001`.
    Sans elle, le paquet de transition d'Ubuntu (qui réinstalle le snap) l'emporte.
@@ -40,8 +41,7 @@ Ubuntu installe Firefox et Thunderbird en snap d'office. Dans `tasks/02-bureauti
 6. **Installer les paquets** `.deb` (`state: latest`, `allow_downgrade: true`, car le paquet de
    transition d'Ubuntu peut déjà être installé et doit être remplacé par la version du PPA).
 
-Le PPA est ajouté par `apt_repository` (qui gère sa propre clé) : exception à la règle des clés
-`.asc` dans `/etc/apt/keyrings/`.
+Le PPA suit la règle des clés `.asc` dans `/etc/apt/keyrings/` comme les autres dépôts.
 
 ## Risques et précautions
 - `snap remove --purge` **supprime les données** du snap (profils Firefox/Thunderbird,

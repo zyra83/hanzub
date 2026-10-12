@@ -75,10 +75,9 @@ l'architecture est `amd64` ou `arm64`.
 | `tar`       | archivage                               |
 | `musl`      | compilation de binaires statiques       |
 
-## Bureautique (poste avec bureau uniquement)
+## Bureautique
 LibreOffice (avec paquets de langue française), Firefox et Thunderbird (`.deb` du PPA
-`mozillateam`, snaps désinstallés), KeePassXC et 7-Zip (`p7zip-full`). Ignorée sur un système
-sans environnement graphique.
+`mozillateam`, snaps désinstallés), KeePassXC et 7-Zip (`p7zip-full`).
 
 ## À venir
 `argocd`, `cilium`, `dyff`, `gator`, `hauler`, `jf`, `kind`, `kubectl-argo-rollouts`,
