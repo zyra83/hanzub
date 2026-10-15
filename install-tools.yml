@@ -39,6 +39,9 @@
     - name: Outils du quotidien
       ansible.builtin.import_tasks: tasks/03-outils-quotidiens.yml
 
+    - name: Docker et runtime NVIDIA
+      ansible.builtin.import_tasks: tasks/05-docker.yml
+
 # argocd
 # cilium
 # dyff

@@ -1,0 +1,66 @@
+---
+# Spec : doc/specs/05-docker.md
+- name: Installer la clé du dépôt Docker
+  ansible.builtin.get_url:
+    url: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
+    dest: /etc/apt/keyrings/docker.asc
+    mode: "0644"
+
+- name: Ajouter le dépôt Docker
+  ansible.builtin.apt_repository:
+    repo: "deb [arch={{ binary_architecture }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+    filename: docker
+    state: present
+
+- name: Installer Docker CE
+  ansible.builtin.apt:
+    name:
+      - docker-ce # moteur de conteneurs
+      - docker-ce-cli # client en ligne de commande
+      - containerd.io # runtime de conteneurs
+      - docker-buildx-plugin # construction d'images (buildx)
+      - docker-compose-plugin # docker compose v2
+    state: present
+    update_cache: true
+
+- name: Installer la clé du dépôt NVIDIA Container Toolkit
+  ansible.builtin.get_url:
+    url: https://nvidia.github.io/libnvidia-container/gpgkey
+    dest: /etc/apt/keyrings/nvidia-container-toolkit.asc
+    mode: "0644"
+
+- name: Ajouter le dépôt NVIDIA Container Toolkit
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/nvidia-container-toolkit.asc] https://nvidia.github.io/libnvidia-container/stable/deb/{{ binary_architecture }} /"
+    filename: nvidia-container-toolkit
+    state: present
+
+- name: Installer NVIDIA Container Toolkit
+  ansible.builtin.apt:
+    name: nvidia-container-toolkit
+    state: present
+    update_cache: true
+
+- name: Détecter la runtime NVIDIA dans la configuration de Docker
+  ansible.builtin.command: grep -qs nvidia /etc/docker/daemon.json
+  register: docker_nvidia_runtime
+  changed_when: false
+  failed_when: false
+
+- name: Configurer la runtime NVIDIA pour Docker
+  ansible.builtin.command: nvidia-ctk runtime configure --runtime=docker
+  when: docker_nvidia_runtime.rc != 0
+  register: docker_nvidia_configure
+  changed_when: true
+
+- name: Redémarrer Docker après la configuration de la runtime NVIDIA
+  ansible.builtin.systemd:
+    name: docker
+    state: restarted
+  when: docker_nvidia_configure is changed
+
+- name: Activer et démarrer Docker
+  ansible.builtin.systemd:
+    name: docker
+    enabled: true
+    state: started

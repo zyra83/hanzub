@@ -19,5 +19,13 @@
       # - ydiff # outil de comparaison YAML
       - bat # outil de visualisation de fichiers, less sous stéroïdes..
       - musl # pour compiler des binaires statiques
+      - virtualbox # hyperviseur de machines virtuelles
+      - virtualbox-guest-utils # Guest Additions (services invité, presse-papiers, dossiers partagés)
+      - virtualbox-guest-additions-iso # ISO des Guest Additions à monter dans les VM invitées
+      - virtualbox-ext-pack # Extensions Pack (USB 2/3, RDP, PXE, NVMe, etc.)
+      - gufw # interface graphique du pare-feu (ufw)
+      - remmina # client de bureau à distance
+      - remmina-plugin-rdp # greffon RDP pour Remmina
+      - remmina-plugin-vnc # greffon VNC pour Remmina
     state: present
     update_cache: true
