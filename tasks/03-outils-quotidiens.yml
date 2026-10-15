@@ -16,7 +16,7 @@
       - apt-transport-https # pour les dépôts APT via HTTPS
       - gnupg # pour vérifier les signatures des paquets
       - yq # outil de manipulation YAML
-      - ydiff # outil de comparaison YAML
+      # - ydiff # outil de comparaison YAML
       - bat # outil de visualisation de fichiers, less sous stéroïdes..
       - musl # pour compiler des binaires statiques
     state: present
