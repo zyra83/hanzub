@@ -82,7 +82,7 @@
       - firefox-l10n-fr
       - thunderbird
       - thunderbird-l10n-fr
-      - keepassxc
+      - keepassxc-full
       - p7zip-full # 7-Zip complet (`7z`)
     state: latest
     allow_downgrade: true

@@ -42,6 +42,9 @@
     - name: Docker et runtime NVIDIA
       ansible.builtin.import_tasks: tasks/05-docker.yml
 
+    - name: Secrets git (gnome-keyring)
+      ansible.builtin.import_tasks: tasks/06-secrets-git.yml
+
 # argocd
 # cilium
 # dyff

@@ -30,6 +30,7 @@ fichier de `tasks/` de même numéro et de même nom, ce qui permet de suivre l'
 | `02-bureautique.md`          | `02-bureautique.yml`         | implémentée (à tester) |
 | `03-outils-quotidiens.md`    | `03-outils-quotidiens.yml`   | implémentée   |
 | `05-docker.md`               | `05-docker.yml`              | implémentée (à tester) |
+| `06-secrets-git.md`          | `06-secrets-git.yml`         | implémentée (à tester) |
 
 Pour ajouter un outil : rédiger ou compléter la spec, puis coder la liste de tâches
 correspondante. Ne pas ajouter de tâche directement dans `install-tools.yml`.
@@ -83,6 +84,7 @@ l'architecture est `amd64` ou `arm64`.
 | `remmina` | client de bureau à distance |
 | `remmina-plugin-rdp` | greffon RDP pour Remmina |
 | `remmina-plugin-vnc` | greffon VNC pour Remmina |
+| `virt-viewer` | client SPICE/VNC (`remote-viewer`) pour Proxmox |
 
 ### Docker et runtime NVIDIA (`05-docker.yml`)
 Docker CE (`docker-ce`, `docker-ce-cli`, `containerd.io`, `docker-buildx-plugin`,
@@ -92,7 +94,14 @@ Docker CE (`docker-ce`, `docker-ce-cli`, `containerd.io`, `docker-buildx-plugin`
 
 ## Bureautique
 LibreOffice (avec paquets de langue française), Firefox et Thunderbird (`.deb` du dépôt APT
-officiel `packages.mozilla.org`, snaps désinstallés), KeePassXC et 7-Zip (`p7zip-full`).
+officiel `packages.mozilla.org`, snaps désinstallés), KeePassXC (`keepassxc-full`) et 7-Zip (`p7zip-full`).
+
+## Secrets git (`06-secrets-git.yml`)
+git stocke ses identifiants dans gnome-keyring : installation de `gnome-keyring`,
+`libsecret-tools` et des dépendances de compilation, compilation de `git-credential-libsecret`
+(sources livrées avec git) vers `/usr/local/bin`, puis
+`git config --system credential.helper`. Nécessite une session graphique pour déverrouiller
+le trousseau.
 
 ## À venir
 `argocd`, `cilium`, `dyff`, `gator`, `hauler`, `jf`, `kind`, `kubectl-argo-rollouts`,

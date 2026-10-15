@@ -10,7 +10,7 @@ système, manipulation JSON/YAML, archives, git.
 Tous en paquets APT, version du dépôt Ubuntu : `nano`, `ncdu`, `htop`, `btop`, `zsh`, `git`,
 `jq`, `wget`, `unzip`, `tar`, `yq`, `ydiff`, `bat`, `musl`, `virtualbox`,
 `virtualbox-guest-utils`, `virtualbox-guest-additions-iso`, `virtualbox-ext-pack`,
-`gufw`, `remmina`, `remmina-plugin-rdp`, `remmina-plugin-vnc`
+`gufw`, `remmina`, `remmina-plugin-rdp`, `remmina-plugin-vnc`, `virt-viewer`
 (+ `apt-transport-https` et `gnupg`, déjà dans le socle `tasks/00-prerequis.yml`).
 
 ## Contraintes d'installation
@@ -32,11 +32,13 @@ Tous en paquets APT, version du dépôt Ubuntu : `nano`, `ncdu`, `htop`, `btop`,
 ## Pare-feu, bureau à distance
 - `gufw` : interface graphique pour `ufw` ; elle ne configure ni n'active le pare-feu.
 - `remmina` avec les greffons RDP et VNC.
+- `virt-viewer` : fournit `remote-viewer`, client SPICE pour les consoles de VM Proxmox.
 
 ## Critères d'acceptation
 - `command -v nano ncdu htop btop zsh git jq wget unzip tar yq ydiff bat` trouve chaque outil
   (sous Ubuntu, `bat` peut s'appeler `batcat` : à vérifier).
 - `VBoxManage list extpacks` liste l'Extension Pack.
+- `command -v remote-viewer` trouve le client SPICE.
 - 2e exécution du playbook : 0 `changed`.
 
 ## Hors périmètre

@@ -26,5 +26,6 @@
       - remmina # client de bureau à distance
       - remmina-plugin-rdp # greffon RDP pour Remmina
       - remmina-plugin-vnc # greffon VNC pour Remmina
+      - virt-viewer # client SPICE/VNC (remote-viewer) pour les VM Proxmox
     state: present
     update_cache: true

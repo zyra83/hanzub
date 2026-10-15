@@ -13,7 +13,7 @@ d'un client mail et d'un navigateur, en français. Thunderbird et Firefox sont i
 | LibreOffice   | celle du dépôt Ubuntu         | `libreoffice`, `libreoffice-l10n-fr`, `libreoffice-help-fr`       |
 | Thunderbird   | dernière du PPA               | `ppa:mozillateam/ppa` : `thunderbird`, `thunderbird-locale-fr`    |
 | Firefox       | dernière du PPA               | `ppa:mozillateam/ppa` : `firefox`, `firefox-locale-fr`            |
-| KeePassXC     | celle du dépôt Ubuntu         | `keepassxc`                                                       |
+| KeePassXC     | celle du dépôt Ubuntu         | `keepassxc-full`                                                  |
 | 7-Zip complet | celle du dépôt Ubuntu         | `p7zip-full` (interprété comme « 7zfull » ; sur Ubuntu récent, `7zip` existe aussi : à confirmer) |
 
 ## Contraintes d'installation
