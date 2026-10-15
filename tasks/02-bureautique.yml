@@ -1,31 +1,31 @@
 ---
 # Spec : doc/specs/02-bureautique.md
-- name: Vérifier que le système est Ubuntu (PPA Mozilla)
-  ansible.builtin.assert:
-    that:
-      - ansible_distribution == 'Ubuntu'
-    fail_msg: "Le PPA mozillateam ne s'applique qu'à Ubuntu."
-
 - name: Installer la clé du PPA Mozilla Team
   ansible.builtin.get_url:
-    url: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x738BEB9321D1AAEC13EA9391AEBDF4819BE21867"
-    dest: /etc/apt/keyrings/mozillateam.asc
+    url: https://packages.mozilla.org/apt/repo-signing-key.gpg
+    dest: /etc/apt/keyrings/packages.mozilla.org.asc
     mode: "0644"
 
-- name: Ajouter le PPA Mozilla Team
-  ansible.builtin.apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/mozillateam.asc] https://ppa.launchpadcontent.net/mozillateam/ppa/ubuntu {{ ansible_distribution_release }} main"
-    filename: mozillateam-ppa
-    state: present
-    update_cache: true
+- name: For Debian Trixie/Ubuntu Resolute and Newer Installé le dépot mozilla
+  ansible.builtin.copy:
+    dest: /etc/apt/sources.list.d/mozilla.sources
+    content: |
+      Types: deb
+      URIs: https://packages.mozilla.org/apt
+      Suites: mozilla
+      Components: main
+      Signed-By: /etc/apt/keyrings/packages.mozilla.org.asc
+    owner: root
+    group: root
+    mode: "0644"
 
 - name: Donner la priorité au PPA Mozilla sur les paquets de transition snap d'Ubuntu
   ansible.builtin.copy:
-    dest: /etc/apt/preferences.d/mozilla-ppa
+    dest: /etc/apt/preferences.d/mozilla
     content: |
-      Package: firefox* thunderbird*
-      Pin: release o=LP-PPA-mozillateam
-      Pin-Priority: 1001
+      Package: firefox
+      Pin: release o=Ubuntu
+      Pin-Priority: -1
     owner: root
     group: root
     mode: "0644"
@@ -34,7 +34,9 @@
   ansible.builtin.copy:
     dest: /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
     content: |
-      Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:${distro_codename}";
+      Unattended-Upgrade::Origins-Pattern {
+              "site=packages.mozilla.org";
+      };
     owner: root
     group: root
     mode: "0644"
@@ -44,11 +46,6 @@
   register: bureautique_apt_policy
   changed_when: false
 
-- name: Vérifier que le PPA Mozilla fournit bien les paquets (sinon on ne touche pas aux snaps)
-  ansible.builtin.assert:
-    that:
-      - "'mozillateam' in bureautique_apt_policy.stdout"
-    fail_msg: "PPA mozillateam indisponible ou sans firefox/thunderbird pour cette version d'Ubuntu : les snaps sont conservés."
 
 - name: Vérifier la présence de snapd
   ansible.builtin.stat:
