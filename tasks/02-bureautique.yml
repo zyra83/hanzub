@@ -1,25 +1,25 @@
 ---
 # Spec : doc/specs/02-bureautique.md
-- name: Installer la clé du PPA Mozilla Team
+- name: Installer la clé de signature du dépôt APT Mozilla
   ansible.builtin.get_url:
     url: https://packages.mozilla.org/apt/repo-signing-key.gpg
     dest: /etc/apt/keyrings/packages.mozilla.org.asc
     mode: "0644"
 
-- name: For Debian Trixie/Ubuntu Resolute and Newer Installé le dépot mozilla
+- name: Ajouter le dépôt APT Mozilla (Firefox et Thunderbird DEB)
   ansible.builtin.copy:
     dest: /etc/apt/sources.list.d/mozilla.sources
     content: |
       Types: deb
       URIs: https://packages.mozilla.org/apt
-      Suites: mozilla
+      Suites: mozilla thunderbird-deb
       Components: main
       Signed-By: /etc/apt/keyrings/packages.mozilla.org.asc
     owner: root
     group: root
     mode: "0644"
 
-- name: Donner la priorité au PPA Mozilla sur les paquets de transition snap d'Ubuntu
+- name: Donner la priorité au dépôt Mozilla sur les paquets de transition snap d'Ubuntu
   ansible.builtin.copy:
     dest: /etc/apt/preferences.d/mozilla
     content: |
@@ -30,7 +30,7 @@
     group: root
     mode: "0644"
 
-- name: Autoriser les mises à jour automatiques depuis le PPA Mozilla
+- name: Autoriser les mises à jour automatiques depuis le dépôt Mozilla
   ansible.builtin.copy:
     dest: /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
     content: |
