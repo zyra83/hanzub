@@ -27,5 +27,9 @@
       - remmina-plugin-rdp # greffon RDP pour Remmina
       - remmina-plugin-vnc # greffon VNC pour Remmina
       - virt-viewer # client SPICE/VNC (remote-viewer) pour les VM Proxmox
+      - deja-dup # sauvegarde graphique intégrée à GNOME (« Sauvegardes »)
+      - vlc # lecteur multimédia
+      - gnome-tweaks # réglages avancés du bureau GNOME
+      - smartmontools # état de santé des disques (smartctl)
     state: present
     update_cache: true

@@ -1,0 +1,33 @@
+---
+# Spec : doc/specs/07-pare-feu.md
+- name: Installer le pare-feu ufw
+  ansible.builtin.apt:
+    name:
+      - ufw # pare-feu simplifié (frontal d'iptables/nftables)
+    state: present
+    update_cache: true
+
+- name: Lire l'état du pare-feu
+  ansible.builtin.command: ufw status verbose
+  register: pare_feu_etat
+  changed_when: false
+
+- name: Refuser tout le trafic entrant par défaut
+  ansible.builtin.command: ufw default deny incoming
+  when: "'Default: deny (incoming)' not in pare_feu_etat.stdout"
+  changed_when: true
+
+- name: Autoriser tout le trafic sortant par défaut
+  ansible.builtin.command: ufw default allow outgoing
+  when: "'allow (outgoing)' not in pare_feu_etat.stdout"
+  changed_when: true
+
+- name: Autoriser SSH en entrée (22/tcp)
+  ansible.builtin.command: ufw allow 22/tcp
+  when: "'22/tcp' not in pare_feu_etat.stdout"
+  changed_when: true
+
+- name: Activer le pare-feu
+  ansible.builtin.command: ufw --force enable
+  when: "'Status: active' not in pare_feu_etat.stdout"
+  changed_when: true

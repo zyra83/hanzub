@@ -31,6 +31,8 @@ fichier de `tasks/` de même numéro et de même nom, ce qui permet de suivre l'
 | `03-outils-quotidiens.md`    | `03-outils-quotidiens.yml`   | implémentée   |
 | `05-docker.md`               | `05-docker.yml`              | implémentée (à tester) |
 | `06-secrets-git.md`          | `06-secrets-git.yml`         | implémentée (à tester) |
+| `07-pare-feu.md`             | `07-pare-feu.yml`            | implémentée (à tester) |
+| `08-zsh.md`                  | *(à créer)*                  | à faire       |
 
 Pour ajouter un outil : rédiger ou compléter la spec, puis coder la liste de tâches
 correspondante. Ne pas ajouter de tâche directement dans `install-tools.yml`.
@@ -85,6 +87,10 @@ l'architecture est `amd64` ou `arm64`.
 | `remmina-plugin-rdp` | greffon RDP pour Remmina |
 | `remmina-plugin-vnc` | greffon VNC pour Remmina |
 | `virt-viewer` | client SPICE/VNC (`remote-viewer`) pour Proxmox |
+| `deja-dup` | sauvegarde graphique GNOME (« Sauvegardes ») |
+| `vlc` | lecteur multimédia |
+| `gnome-tweaks` | réglages avancés du bureau GNOME |
+| `smartmontools` | état de santé des disques (`smartctl`) |
 
 ### Docker et runtime NVIDIA (`05-docker.yml`)
 Docker CE (`docker-ce`, `docker-ce-cli`, `containerd.io`, `docker-buildx-plugin`,
@@ -95,6 +101,14 @@ Docker CE (`docker-ce`, `docker-ce-cli`, `containerd.io`, `docker-buildx-plugin`
 ## Bureautique
 LibreOffice (avec paquets de langue française), Firefox et Thunderbird (`.deb` du dépôt APT
 officiel `packages.mozilla.org`, snaps désinstallés), KeePassXC (`keepassxc-full`) et 7-Zip (`p7zip-full`).
+
+## Pare-feu (`07-pare-feu.yml`)
+`ufw` activé : entrée refusée sauf SSH (`22/tcp`), sortie autorisée. Le serveur SSH lui-même
+n'est pas installé. Les ports publiés par Docker contournent `ufw`.
+
+## zsh + Oh My Zsh + Powerlevel10k (`08-zsh.md`, à faire)
+Spécifiée mais pas encore implémentée : environnement zsh déposé dans `/etc/skel` pour les
+nouveaux utilisateurs. Voir les questions ouvertes de la spec.
 
 ## Secrets git (`06-secrets-git.yml`)
 git stocke ses identifiants dans gnome-keyring : installation de `gnome-keyring`,

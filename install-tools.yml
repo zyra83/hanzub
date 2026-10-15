@@ -45,6 +45,9 @@
     - name: Secrets git (gnome-keyring)
       ansible.builtin.import_tasks: tasks/06-secrets-git.yml
 
+    - name: Pare-feu
+      ansible.builtin.import_tasks: tasks/07-pare-feu.yml
+
 # argocd
 # cilium
 # dyff
