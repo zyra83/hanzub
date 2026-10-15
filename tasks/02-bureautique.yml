@@ -46,7 +46,6 @@
   register: bureautique_apt_policy
   changed_when: false
 
-
 - name: Vérifier la présence de snapd
   ansible.builtin.stat:
     path: /usr/bin/snap
@@ -80,9 +79,9 @@
       - libreoffice-l10n-fr
       - libreoffice-help-fr
       - firefox
-      - firefox-locale-fr
+      - firefox-l10n-fr
       - thunderbird
-      - thunderbird-locale-fr
+      - thunderbird-l10n-fr
       - keepassxc
       - p7zip-full # 7-Zip complet (`7z`)
     state: latest
