@@ -20,7 +20,7 @@ ansible-playbook -i localhost, -c local -K install-tools.yml
 ### Installation minimale
 Le tag `minimal` limite l'installation au socle (00), à la bureautique (02), à un sous-ensemble
 des outils du quotidien (03 : `nano`, `zsh`, `git`, `wget`, `unzip`, `tar`, `bat`, `gufw`,
-`deja-dup`, `gnome-tweaks`, `smartmontools`), aux secrets git (06) et au pare-feu (07). Sont
+`deja-dup`, `gnome-tweaks`, `smartmontools`), aux secrets git (06), au pare-feu (07) et à zsh (08). Sont
 exclus : Kubernetes (01), Docker (05) et le reste de la liste 03. Les vérifications de départ
 (APT, architecture) s'exécutent toujours.
 
@@ -46,7 +46,7 @@ fichier de `tasks/` de même numéro et de même nom, ce qui permet de suivre l'
 | `05-docker.md`               | `05-docker.yml`              | implémentée (à tester) |
 | `06-secrets-git.md`          | `06-secrets-git.yml`         | implémentée (à tester) |
 | `07-pare-feu.md`             | `07-pare-feu.yml`            | implémentée (à tester) |
-| `08-zsh.md`                  | *(à créer)*                  | à faire       |
+| `08-zsh.md`                  | `08-zsh.yml`                 | implémentée (à tester) |
 
 Pour ajouter un outil : rédiger ou compléter la spec, puis coder la liste de tâches
 correspondante. Ne pas ajouter de tâche directement dans `install-tools.yml`.
@@ -120,9 +120,11 @@ officiel `packages.mozilla.org`, snaps désinstallés), KeePassXC (`keepassxc-fu
 `ufw` activé : entrée refusée sauf SSH (`22/tcp`), sortie autorisée. Le serveur SSH lui-même
 n'est pas installé. Les ports publiés par Docker contournent `ufw`.
 
-## zsh + Oh My Zsh + Powerlevel10k (`08-zsh.md`, à faire)
-Spécifiée mais pas encore implémentée : environnement zsh déposé dans `/etc/skel` pour les
-nouveaux utilisateurs. Voir les questions ouvertes de la spec.
+## zsh + Oh My Zsh + Powerlevel10k (`08-zsh.yml`)
+Oh My Zsh (plugins `git`, `kubectl`, `docker`, `helm`) et Powerlevel10k, versions épinglées,
+déposés dans `/etc/skel` avec un `.zshrc` et un `.p10k.zsh` (dossier `files/zsh/`), plus la
+police MesloLGS NF. zsh devient le shell par défaut des **nouveaux** comptes
+(`/etc/default/useradd`, `/etc/adduser.conf`) ; les comptes existants ne changent pas.
 
 ## Secrets git (`06-secrets-git.yml`)
 git stocke ses identifiants dans gnome-keyring : installation de `gnome-keyring`,

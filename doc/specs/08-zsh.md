@@ -1,6 +1,6 @@
 # zsh, Oh My Zsh et Powerlevel10k
 
-Statut : À faire
+Statut : Implémentée (config zsh testée dans un HOME factice ; playbook non testé en réel : à valider en VM)
 
 ## Objectif
 Tout nouvel utilisateur créé sur le master reçoit, via `/etc/skel`, un environnement zsh prêt à
@@ -11,20 +11,22 @@ interactif. zsh devient le shell par défaut des nouveaux comptes.
 | Élément        | Version                     | Source                                              |
 |----------------|-----------------------------|-----------------------------------------------------|
 | `zsh`          | dépôt Ubuntu (déjà en spec 03) | APT                                              |
-| Oh My Zsh      | commit/tag épinglé dans `vars:` | `https://github.com/ohmyzsh/ohmyzsh` (git clone) |
-| Powerlevel10k  | tag épinglé dans `vars:`    | `https://github.com/romkatv/powerlevel10k` (git clone) |
-| Police MesloLGS NF | épinglée dans `vars:`   | `https://github.com/romkatv/powerlevel10k-media` (4 `.ttf`) |
+| Oh My Zsh      | commit `964ddf7` (`ohmyzsh_version`) | `https://github.com/ohmyzsh/ohmyzsh` (git clone) |
+| Powerlevel10k  | `v1.20.0` (`powerlevel10k_version`) | `https://github.com/romkatv/powerlevel10k` (git clone) |
+| Police MesloLGS NF | commit `145eb9f` (`meslolgs_fonts_version`) | `https://github.com/romkatv/powerlevel10k-media` (4 `.ttf`) |
 
 ## Source d'installation
 - Pas de `install.sh` d'Oh My Zsh (il lance `chsh` et peut démarrer un zsh interactif) :
-  `ansible.builtin.git` vers `/etc/skel/.oh-my-zsh`, version épinglée.
+  `ansible.builtin.git` vers `/etc/skel/.oh-my-zsh`, version épinglée (clone superficiel :
+  `depth: 1` avec `refspec` égal au commit, sinon Ansible ignore `depth` pour un SHA).
 - Powerlevel10k cloné dans `/etc/skel/.oh-my-zsh/custom/themes/powerlevel10k`.
 - Fichiers de configuration versionnés **dans ce dépôt** (le playbook doit rester autonome,
   voir `CLAUDE.md`) et copiés par `ansible.builtin.copy` :
   - `files/zsh/zshrc` → `/etc/skel/.zshrc` (`ZSH_THEME="powerlevel10k/powerlevel10k"`,
     `plugins=(git kubectl docker helm)`, chargement de `~/.p10k.zsh`) ;
-  - `files/zsh/p10k.zsh` → `/etc/skel/.p10k.zsh` (configuration pré-générée par
-    `p10k configure`, pour éviter l'assistant au premier lancement).
+  - `files/zsh/p10k.zsh` → `/etc/skel/.p10k.zsh` (style « lean » fourni par Powerlevel10k
+    `v1.20.0`, `config/p10k-lean.zsh`, pour éviter l'assistant au premier lancement ; chacun
+    peut le refaire avec `p10k configure`).
 - Police : installée dans `/usr/local/share/fonts/` (puis `fc-cache -f`), indispensable à
   l'affichage des icônes de Powerlevel10k dans le terminal.
 - Shell par défaut des nouveaux comptes : `SHELL=/bin/zsh` dans `/etc/default/useradd` et
@@ -37,6 +39,7 @@ interactif. zsh devient le shell par défaut des nouveaux comptes.
   écrasement inutile, `lineinfile` pour les fichiers de configuration shell).
 - Droits : `/etc/skel` appartient à root ; les dépôts clonés doivent être lisibles par tous
   (`0755`/`0644`), car ils sont copiés tels quels dans chaque `$HOME`.
+- Tag `minimal` : la liste est incluse dans l'installation minimale (`zsh` en fait partie).
 - Nouvelle liste de tâches `tasks/08-zsh.yml` importée dans `install-tools.yml` ; les versions
   vont dans `vars:` de `install-tools.yml`.
 

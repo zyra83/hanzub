@@ -1,0 +1,19 @@
+# Géré par hanzub (tasks/08-zsh.yml) : copié dans /etc/skel pour les nouveaux utilisateurs.
+
+# Instant prompt de Powerlevel10k : doit rester tout en haut du fichier.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# Version d'Oh My Zsh épinglée par le playbook : pas de mise à jour automatique.
+zstyle ':omz:update' mode disabled
+
+plugins=(git kubectl docker helm)
+
+source "$ZSH/oh-my-zsh.sh"
+
+# Configuration du prompt (pré-générée, `p10k configure` pour la modifier).
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

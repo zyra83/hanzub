@@ -1,0 +1,91 @@
+---
+# Spec : doc/specs/08-zsh.md
+- name: Installer les prérequis zsh (git, zsh, fontconfig)
+  ansible.builtin.apt:
+    name:
+      - zsh # shell cible des nouveaux comptes
+      - git # clonage d'Oh My Zsh et de Powerlevel10k
+      - fontconfig # fc-cache pour la police Nerd Font
+    state: present
+    update_cache: true
+
+- name: Cloner Oh My Zsh dans /etc/skel
+  ansible.builtin.git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: /etc/skel/.oh-my-zsh
+    version: "{{ ohmyzsh_version }}"
+    refspec: "{{ ohmyzsh_version }}"
+    depth: 1
+  register: zsh_ohmyzsh
+  retries: 5
+  delay: 10
+  until: zsh_ohmyzsh is succeeded
+
+- name: Cloner Powerlevel10k dans le dossier des thèmes d'Oh My Zsh
+  ansible.builtin.git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: /etc/skel/.oh-my-zsh/custom/themes/powerlevel10k
+    version: "{{ powerlevel10k_version }}"
+    depth: 1
+  register: zsh_p10k
+  retries: 5
+  delay: 10
+  until: zsh_p10k is succeeded
+
+- name: Déposer le .zshrc dans /etc/skel
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/files/zsh/zshrc"
+    dest: /etc/skel/.zshrc
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Déposer la configuration Powerlevel10k dans /etc/skel
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/files/zsh/p10k.zsh"
+    dest: /etc/skel/.p10k.zsh
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Créer le répertoire de la police MesloLGS NF
+  ansible.builtin.file:
+    path: /usr/local/share/fonts/meslolgs-nf
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Télécharger la police MesloLGS NF
+  ansible.builtin.get_url:
+    url: "https://github.com/romkatv/powerlevel10k-media/raw/{{ meslolgs_fonts_version }}/MesloLGS%20NF%20{{ item }}.ttf"
+    dest: "/usr/local/share/fonts/meslolgs-nf/MesloLGS NF {{ item }}.ttf"
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - Regular
+    - Bold
+    - Italic
+    - Bold Italic
+  register: zsh_polices
+  retries: 5
+  delay: 10
+  until: zsh_polices is succeeded
+
+- name: Mettre à jour le cache des polices
+  ansible.builtin.command: fc-cache -f /usr/local/share/fonts/meslolgs-nf
+  when: zsh_polices is changed
+  changed_when: true
+
+- name: Définir zsh comme shell par défaut de useradd
+  ansible.builtin.lineinfile:
+    path: /etc/default/useradd
+    regexp: '^#?\s*SHELL='
+    line: SHELL=/usr/bin/zsh
+
+- name: Définir zsh comme shell par défaut de adduser
+  ansible.builtin.lineinfile:
+    path: /etc/adduser.conf
+    regexp: '^#?\s*DSHELL='
+    line: DSHELL=/usr/bin/zsh

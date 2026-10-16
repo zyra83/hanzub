@@ -10,6 +10,9 @@
     minikube_version: "v1.37.0"
     kubernetes_keyring: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
     helm_keyring: /etc/apt/keyrings/helm.gpg
+    ohmyzsh_version: "964ddf789b022b6958b27d02d7fa54f552de21e9"
+    powerlevel10k_version: "v1.20.0"
+    meslolgs_fonts_version: "145eb9fbc2f42ee408dacd9b22d8e6e0e553f83d"
     binary_architecture: "{{ {'x86_64': 'amd64', 'aarch64': 'arm64'}[ansible_architecture] | default(ansible_architecture) }}"
 
   pre_tasks:
@@ -53,6 +56,10 @@
 
     - name: Pare-feu
       ansible.builtin.import_tasks: tasks/07-pare-feu.yml
+      tags: [minimal]
+
+    - name: zsh, Oh My Zsh et Powerlevel10k
+      ansible.builtin.import_tasks: tasks/08-zsh.yml
       tags: [minimal]
 
 # argocd
