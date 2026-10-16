@@ -93,7 +93,6 @@ l'architecture est `amd64` ou `arm64`.
 | `tar`       | archivage                               |
 | `musl`      | compilation de binaires statiques       |
 | `virtualbox` | hyperviseur de machines virtuelles     |
-| `virtualbox-guest-utils` | Guest Additions (invité)   |
 | `virtualbox-guest-additions-iso` | ISO des Guest Additions |
 | `virtualbox-ext-pack` | Extension Pack VirtualBox (USB 2/3, RDP, PXE, NVMe, chiffrement de disque) |
 | `gufw` | interface graphique du pare-feu (ufw) |

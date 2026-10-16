@@ -9,7 +9,7 @@ système, manipulation JSON/YAML, archives, git.
 ## Outils et versions
 Tous en paquets APT, version du dépôt Ubuntu : `nano`, `ncdu`, `htop`, `btop`, `zsh`, `git`,
 `jq`, `wget`, `unzip`, `tar`, `yq`, `ydiff`, `bat`, `musl`, `virtualbox`,
-`virtualbox-guest-utils`, `virtualbox-guest-additions-iso`, `virtualbox-ext-pack`,
+`virtualbox-guest-additions-iso`, `virtualbox-ext-pack`,
 `gufw`, `remmina`, `remmina-plugin-rdp`, `remmina-plugin-vnc`, `virt-viewer`, `deja-dup`,
 `vlc`, `gnome-tweaks`, `smartmontools`
 (+ `apt-transport-https` et `gnupg`, déjà dans le socle `tasks/00-prerequis.yml`).
@@ -25,8 +25,8 @@ et `smartmontools` sont installés avec `--tags minimal` (première tâche de
 - Un commentaire inline par paquet dans la liste.
 
 ## VirtualBox
-- `virtualbox` : hyperviseur ; `virtualbox-guest-utils` et `virtualbox-guest-additions-iso` :
-  Guest Additions et leur ISO à monter dans les VM invitées.
+- `virtualbox` : hyperviseur ; `virtualbox-guest-additions-iso` : ISO des Guest Additions à
+  monter dans les VM invitées. `virtualbox-guest-utils` n'est pas installé (inutile sur l'hôte).
 - `virtualbox-ext-pack` : **important** pour l'usage de VirtualBox. Il apporte USB 2.0/3.0,
   RDP (VRDP), démarrage PXE Intel, NVMe et chiffrement de disque. Sans lui, ces fonctions
   sont absentes des VM.
