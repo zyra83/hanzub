@@ -14,27 +14,32 @@
 
   pre_tasks:
     - name: Vérifier que le système utilise APT
+      tags: [always]
       ansible.builtin.assert:
         that:
           - ansible_os_family == 'Debian'
         fail_msg: "Ce playbook cible Ubuntu/Debian."
 
     - name: Vérifier l'architecture supportée
+      tags: [always]
       ansible.builtin.assert:
         that:
           - binary_architecture in ['amd64', 'arm64']
         fail_msg: "Architecture non supportée : {{ ansible_architecture }}."
 
   # Une liste de tâches par spec de doc/specs/, dans l'ordre des numéros.
+  # Tag `minimal` : installation minimale (--tags minimal) ; sans tag, installation complète.
   tasks:
     - name: Socle commun
       ansible.builtin.import_tasks: tasks/00-prerequis.yml
+      tags: [minimal]
 
     - name: Outils Kubernetes
       ansible.builtin.import_tasks: tasks/01-outils-kubernetes.yml
 
     - name: Bureautique
       ansible.builtin.import_tasks: tasks/02-bureautique.yml
+      tags: [minimal]
 
     - name: Outils du quotidien
       ansible.builtin.import_tasks: tasks/03-outils-quotidiens.yml
@@ -44,9 +49,11 @@
 
     - name: Secrets git (gnome-keyring)
       ansible.builtin.import_tasks: tasks/06-secrets-git.yml
+      tags: [minimal]
 
     - name: Pare-feu
       ansible.builtin.import_tasks: tasks/07-pare-feu.yml
+      tags: [minimal]
 
 # argocd
 # cilium

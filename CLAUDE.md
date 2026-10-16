@@ -35,6 +35,10 @@ Les spécifications sont dans `doc/specs/` (gabarit dans `doc/specs/README.md`) 
 - Syntaxe : `ansible-playbook -i localhost, -c local --syntax-check install-tools.yml`
 - Simulation : ajouter `--check --diff -K`
 - Lint : `ansible-lint install-tools.yml` (si installé)
+- Installation minimale : ajouter `--tags minimal` (tag posé sur les imports 00, 02, 06, 07 et
+  sur la tâche « socle minimal » de `tasks/03-outils-quotidiens.yml` ; `--list-tasks --tags minimal`
+  pour voir le périmètre). Tout nouvel outil doit décider s'il porte ce tag. Il n'y a pas de
+  second playbook.
 
 ## Structure du playbook (règle à respecter à chaque édition)
 `install-tools.yml` est un **orchestrateur** : un seul play (vars, pre_tasks = asserts APT +

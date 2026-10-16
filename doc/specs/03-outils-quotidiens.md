@@ -14,6 +14,11 @@ Tous en paquets APT, version du dépôt Ubuntu : `nano`, `ncdu`, `htop`, `btop`,
 `vlc`, `gnome-tweaks`, `smartmontools`
 (+ `apt-transport-https` et `gnupg`, déjà dans le socle `tasks/00-prerequis.yml`).
 
+## Installation minimale (tag `minimal`)
+Seuls `nano`, `zsh`, `git`, `wget`, `unzip`, `tar`, `bat`, `gufw`, `deja-dup`, `gnome-tweaks`
+et `smartmontools` sont installés avec `--tags minimal` (première tâche de
+`tasks/03-outils-quotidiens.yml`). Les autres paquets forment une seconde tâche, sans tag.
+
 ## Contraintes d'installation
 - APT uniquement, non interactif, en root, sous `ansible-pull` (voir `CLAUDE.md`).
 - Idempotent : 2e exécution à 0 `changed`.

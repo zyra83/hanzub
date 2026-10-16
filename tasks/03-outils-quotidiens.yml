@@ -1,35 +1,41 @@
 ---
 # Spec : doc/specs/03-outils-quotidiens.md
-- name: Installer divers outils du travail quotidien
+- name: Installer les outils du quotidien (socle minimal)
+  tags: [minimal]
   ansible.builtin.apt:
     name:
       - nano # éditeur de texte
-      - ncdu # afficher l'utilisation du disque
-      - htop # afficher l'utilisation du CPU et de la RAM
-      - btop # afficher l'utilisation du CPU et de la RAM
       - zsh # shell alternatif
       - git # gestionnaire de versions
-      - jq # outil de manipulation JSON
       - wget # outil de téléchargement
       - unzip # outil de décompression
       - tar # outil de compression
-      - apt-transport-https # pour les dépôts APT via HTTPS
-      - gnupg # pour vérifier les signatures des paquets
-      - yq # outil de manipulation YAML
-      # - ydiff # outil de comparaison YAML
       - bat # outil de visualisation de fichiers, less sous stéroïdes..
-      - musl # pour compiler des binaires statiques
-      - virtualbox # hyperviseur de machines virtuelles
-      - virtualbox-guest-additions-iso # ISO des Guest Additions à monter dans les VM invitées
-      - virtualbox-ext-pack # Extensions Pack (USB 2/3, RDP, PXE, NVMe, etc.)
       - gufw # interface graphique du pare-feu (ufw)
-      - remmina # client de bureau à distance
-      - remmina-plugin-rdp # greffon RDP pour Remmina
-      - remmina-plugin-vnc # greffon VNC pour Remmina
-      - virt-viewer # client SPICE/VNC (remote-viewer) pour les VM Proxmox
       - deja-dup # sauvegarde graphique intégrée à GNOME (« Sauvegardes »)
-      - vlc # lecteur multimédia
       - gnome-tweaks # réglages avancés du bureau GNOME
       - smartmontools # état de santé des disques (smartctl)
     state: present
     update_cache: true
+
+- name: Installer les outils du quotidien (installation complète)
+  ansible.builtin.apt:
+    name:
+      - ncdu # afficher l'utilisation du disque
+      - htop # afficher l'utilisation du CPU et de la RAM
+      - btop # afficher l'utilisation du CPU et de la RAM
+      - jq # outil de manipulation JSON
+      - apt-transport-https # pour les dépôts APT via HTTPS
+      - gnupg # pour vérifier les signatures des paquets
+      - yq # outil de manipulation YAML
+      # - ydiff # outil de comparaison YAML
+      - musl # pour compiler des binaires statiques
+      - virtualbox # hyperviseur de machines virtuelles
+      - virtualbox-guest-additions-iso # ISO des Guest Additions à monter dans les VM invitées
+      - virtualbox-ext-pack # Extensions Pack (USB 2/3, RDP, PXE, NVMe, etc.)
+      - remmina # client de bureau à distance
+      - remmina-plugin-rdp # greffon RDP pour Remmina
+      - remmina-plugin-vnc # greffon VNC pour Remmina
+      - virt-viewer # client SPICE/VNC (remote-viewer) pour les VM Proxmox
+      - vlc # lecteur multimédia
+    state: present

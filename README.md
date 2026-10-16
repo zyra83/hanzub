@@ -17,6 +17,20 @@ sudo apt update && sudo apt install -y ansible
 ansible-playbook -i localhost, -c local -K install-tools.yml
 ```
 
+### Installation minimale
+Le tag `minimal` limite l'installation au socle (00), à la bureautique (02), à un sous-ensemble
+des outils du quotidien (03 : `nano`, `zsh`, `git`, `wget`, `unzip`, `tar`, `bat`, `gufw`,
+`deja-dup`, `gnome-tweaks`, `smartmontools`), aux secrets git (06) et au pare-feu (07). Sont
+exclus : Kubernetes (01), Docker (05) et le reste de la liste 03. Les vérifications de départ
+(APT, architecture) s'exécutent toujours.
+
+```bash
+ansible-playbook -i localhost, -c local -K install-tools.yml --tags minimal
+ansible-pull … install-tools.yml --tags minimal   # en production
+```
+
+Sans `--tags`, l'installation est complète. `--list-tasks --tags minimal` affiche le périmètre.
+
 ## Organisation
 
 `install-tools.yml` est un orchestrateur : il porte les variables et les vérifications, puis
