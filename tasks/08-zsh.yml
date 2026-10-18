@@ -58,7 +58,7 @@
 
 - name: Télécharger la police MesloLGS NF
   ansible.builtin.get_url:
-    url: "https://github.com/romkatv/powerlevel10k-media/raw/{{ meslolgs_fonts_version }}/MesloLGS%20NF%20{{ item }}.ttf"
+    url: "https://github.com/romkatv/powerlevel10k-media/raw/{{ meslolgs_fonts_version }}/MesloLGS%20NF%20{{ item | urlencode }}.ttf"
     dest: "/usr/local/share/fonts/meslolgs-nf/MesloLGS NF {{ item }}.ttf"
     owner: root
     group: root
