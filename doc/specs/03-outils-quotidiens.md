@@ -33,7 +33,8 @@ et `smartmontools` sont installés avec `--tags minimal` (première tâche de
 - Ces paquets viennent de `universe`/`multiverse` : ces composants doivent être activés.
 - `virtualbox-ext-pack` télécharge l'Extension Pack d'Oracle (licence PUEL) et affiche une
   demande d'acceptation de licence debconf : en non interactif (`ansible-pull`), la réponse
-  doit être préconfigurée, sinon l'installation échoue ou se bloque.
+  doit être préconfigurée, sinon l'installation échoue ou se bloque. Une tâche `debconf`
+  (`virtualbox-ext-pack/license` = `true`) précède l'installation des paquets.
 
 ## Pare-feu, bureau à distance
 - `gufw` : interface graphique pour `ufw` ; elle ne configure ni n'active le pare-feu

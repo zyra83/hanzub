@@ -18,6 +18,13 @@
     state: present
     update_cache: true
 
+- name: Accepter la licence VirtualBox Extension Pack
+  ansible.builtin.debconf:
+    name: virtualbox-ext-pack
+    question: virtualbox-ext-pack/license
+    vtype: select
+    value: "true"
+
 - name: Installer les outils du quotidien (installation complète)
   ansible.builtin.apt:
     name:
