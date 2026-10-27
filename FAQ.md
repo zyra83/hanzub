@@ -403,78 +403,78 @@ Cette colonne est indicative, établie de mémoire et non vérifiée en ligne : 
 | Logiciel | Catégorie | Dev | DevOps | Bureautique | SILL |
 |---|---|:-:|:-:|:-:|:-:|
 | **Bureautique et collaboration** | | | | | |
-| LibreOffice | Suite bureautique | ○ | ○ | ● | ✔ |
-| Thunderbird | Messagerie | ○ | ○ | ● | ✔ |
-| Tchap | Messagerie instantanée | ○ | ○ | ○ | ✔ |
-| Mattermost (client Desktop) | Messagerie d'équipe | ○ | ● | ○ | ✔ |
-| Microsoft Teams | Messagerie d'équipe | ● | ● | ● | — |
+| [LibreOffice](https://www.libreoffice.org/) | Suite bureautique | ○ | ○ | ● | ✔ |
+| [Thunderbird](https://www.thunderbird.net/) | Messagerie | ○ | ○ | ● | ✔ |
+| [Tchap](https://www.tchap.gouv.fr/) | Messagerie instantanée | ○ | ○ | ○ | ✔ |
+| [Mattermost (client Desktop)](https://mattermost.com/apps/) | Messagerie d'équipe | ○ | ● | ○ | ✔ |
+| [Microsoft Teams](https://www.microsoft.com/fr-fr/microsoft-teams/group-chat-software) | Messagerie d'équipe | ● | ● | ● | — |
 | [Visio](https://visio.numerique.gouv.fr/) | Visioconférence | ○ | ○ | ○ | — |
-| Zotero | Gestion bibliographique | | | ○ | ✔ |
-| Notion / Obsidian | Prise de notes | ○ | ○ | ○ | — |
+| [Zotero](https://www.zotero.org/) | Gestion bibliographique | | | ○ | ✔ |
+| [Notion](https://www.notion.com/) / [Obsidian](https://obsidian.md/) | Prise de notes | ○ | ○ | ○ | — |
 | **Internet et sécurité du poste** | | | | | |
-| Firefox | Navigateur | ● | ● | ● | ✔ |
-| Chromium / Google Chrome | Navigateur | ● | ● | ● | — |
-| KeePassXC | Gestionnaire de mots de passe | ● | ● | ● | ✔ |
-| Bitwarden | Gestionnaire de mots de passe | ○ | ● | ○ | ✔ |
-| 7-Zip / p7zip | Archives | ○ | ○ | ○ | ✔ |
+| [Firefox](https://www.mozilla.org/fr/firefox/) | Navigateur | ● | ● | ● | ✔ |
+| [Chromium](https://www.chromium.org/) / [Google Chrome](https://www.google.com/chrome/) | Navigateur | ● | ● | ● | — |
+| [KeePassXC](https://keepassxc.org/) | Gestionnaire de mots de passe | ● | ● | ● | ✔ |
+| [Bitwarden](https://bitwarden.com/) | Gestionnaire de mots de passe | ○ | ● | ○ | ✔ |
+| [7-Zip](https://www.7-zip.org/) / [p7zip](https://github.com/p7zip-project/p7zip) | Archives | ○ | ○ | ○ | ✔ |
 | **Médias et graphisme** | | | | | |
-| VLC | Lecteur multimédia | ○ | ○ | ● | ✔ |
-| GIMP | Retouche d'image | ○ | | ○ | ✔ |
-| Inkscape | Dessin vectoriel | ○ | | ○ | ✔ |
-| Krita | Dessin numérique | | | ○ | ✔ |
-| Blender | 3D | ○ | | | ✔ |
-| OBS Studio | Capture / streaming | ○ | ○ | ○ | ✔ |
-| Audacity | Édition audio | | | ○ | ✔ |
-| Kdenlive | Montage vidéo | | | ○ | ✔ |
-| Draw.io (diagrams.net) | Diagrammes | ● | ● | ○ | ✔ |
-| Figma | Maquettes UI | ○ | | ○ | — |
+| [VLC](https://www.videolan.org/vlc/) | Lecteur multimédia | ○ | ○ | ● | ✔ |
+| [GIMP](https://www.gimp.org/) | Retouche d'image | ○ | | ○ | ✔ |
+| [Inkscape](https://inkscape.org/) | Dessin vectoriel | ○ | | ○ | ✔ |
+| [Krita](https://krita.org/) | Dessin numérique | | | ○ | ✔ |
+| [Blender](https://www.blender.org/) | 3D | ○ | | | ✔ |
+| [OBS Studio](https://obsproject.com/) | Capture / streaming | ○ | ○ | ○ | ✔ |
+| [Audacity](https://www.audacityteam.org/) | Édition audio | | | ○ | ✔ |
+| [Kdenlive](https://kdenlive.org/) | Montage vidéo | | | ○ | ✔ |
+| [Draw.io (diagrams.net)](https://www.drawio.com/) | Diagrammes | ● | ● | ○ | ✔ |
+| [Figma](https://www.figma.com/) | Maquettes UI | ○ | | ○ | — |
 | **Édition de code** | | | | | |
-| Visual Studio Code | Éditeur / IDE | ● | ● | | — |
-| JetBrains (IntelliJ, PyCharm, GoLand…) | IDE | ● | ○ | | — |
-| Vim / Neovim | Éditeur terminal | ● | ● | | ✔ |
-| Cursor / Zed | Éditeur orienté IA / performance | ○ | ○ | | — |
+| [Visual Studio Code](https://code.visualstudio.com/) | Éditeur / IDE | ● | ● | | — |
+| [JetBrains (IntelliJ, PyCharm, GoLand…)](https://www.jetbrains.com/) | IDE | ● | ○ | | — |
+| [Vim](https://www.vim.org/) / [Neovim](https://neovim.io/) | Éditeur terminal | ● | ● | | ✔ |
+| [Cursor](https://cursor.com/) / [Zed](https://zed.dev/) | Éditeur orienté IA / performance | ○ | ○ | | — |
 | **Langages et runtimes** | | | | | |
-| Git | Gestion de versions | ● | ● | | ✔ |
-| Python | Langage | ● | ● | ○ | ✔ |
-| Node.js | Runtime JavaScript | ● | ○ | | ✔ |
-| OpenJDK | Runtime Java | ● | ○ | | ✔ |
-| Go | Langage | ○ | ● | | ✔ |
-| Rust (rustup / cargo) | Langage | ○ | ○ | | ✔ |
+| [Git](https://git-scm.com/) | Gestion de versions | ● | ● | | ✔ |
+| [Python](https://www.python.org/) | Langage | ● | ● | ○ | ✔ |
+| [Node.js](https://nodejs.org/) | Runtime JavaScript | ● | ○ | | ✔ |
+| [OpenJDK](https://openjdk.org/) | Runtime Java | ● | ○ | | ✔ |
+| [Go](https://go.dev/) | Langage | ○ | ● | | ✔ |
+| [Rust (rustup / cargo)](https://www.rust-lang.org/) | Langage | ○ | ○ | | ✔ |
 | **Données et API** | | | | | |
-| DBeaver | Client SQL | ● | ○ | | ✔ |
-| Postman | Client d'API | ● | ○ | | — |
-| Bruno / Insomnia | Client d'API | ○ | ○ | | — |
-| curl / jq / yq | Outils CLI | ● | ● | | ✔ |
+| [DBeaver](https://dbeaver.io/) | Client SQL | ● | ○ | | ✔ |
+| [Postman](https://www.postman.com/) | Client d'API | ● | ○ | | — |
+| [Bruno](https://www.usebruno.com/) / [Insomnia](https://insomnia.rest/) | Client d'API | ○ | ○ | | — |
+| [curl](https://curl.se/) / [jq](https://jqlang.org/) / [yq](https://mikefarah.gitbook.io/yq/) | Outils CLI | ● | ● | | ✔ |
 | **Conteneurs et Kubernetes** | | | | | |
-| Docker (Engine / Desktop) | Conteneurs | ● | ● | | ✔ |
-| Podman | Conteneurs sans démon | ○ | ● | | ✔ |
-| kubectl | Client Kubernetes | ○ | ● | | ✔ |
-| Helm | Gestionnaire de charts | ○ | ● | | ✔ |
-| k9s | Interface terminal Kubernetes | | ● | | ✔ |
-| Minikube / k3s | Cluster local | ○ | ● | | ✔ |
-| Kind | Cluster local dans Docker | ○ | ● | | ✔ |
-| Lens / Headlamp | Interface Kubernetes | | ○ | | — |
-| argocd (CLI) | Client Argo CD (GitOps) | | ● | | ✔ |
-| cilium (CLI) | Client Cilium (réseau Kubernetes) | | ○ | | ✔ |
+| [Docker (Engine / Desktop)](https://www.docker.com/) | Conteneurs | ● | ● | | ✔ |
+| [Podman](https://podman.io/) | Conteneurs sans démon | ○ | ● | | ✔ |
+| [kubectl](https://kubernetes.io/docs/reference/kubectl/) | Client Kubernetes | ○ | ● | | ✔ |
+| [Helm](https://helm.sh/) | Gestionnaire de charts | ○ | ● | | ✔ |
+| [k9s](https://k9scli.io/) | Interface terminal Kubernetes | | ● | | ✔ |
+| [Minikube](https://minikube.sigs.k8s.io/) / [k3s](https://k3s.io/) | Cluster local | ○ | ● | | ✔ |
+| [Kind](https://kind.sigs.k8s.io/) | Cluster local dans Docker | ○ | ● | | ✔ |
+| [Lens](https://k8slens.dev/) / [Headlamp](https://headlamp.dev/) | Interface Kubernetes | | ○ | | — |
+| [argocd (CLI)](https://argo-cd.readthedocs.io/en/stable/cli_installation/) | Client Argo CD (GitOps) | | ● | | ✔ |
+| [cilium (CLI)](https://github.com/cilium/cilium-cli) | Client Cilium (réseau Kubernetes) | | ○ | | ✔ |
 | **Infrastructure as Code et CI/CD** | | | | | |
-| Ansible | Configuration | ○ | ● | | ✔ |
-| Terraform | IaC | ○ | ● | | — |
-| OpenTofu | IaC | | ○ | | ✔ |
-| vault / bao (CLI) | Client Vault / OpenBao (secrets) | | ● | | ✔ |
+| [Ansible](https://www.ansible.com/) | Configuration | ○ | ● | | ✔ |
+| [Terraform](https://www.terraform.io/) | IaC | ○ | ● | | — |
+| [OpenTofu](https://opentofu.org/) | IaC | | ○ | | ✔ |
+| [vault](https://developer.hashicorp.com/vault) / [bao](https://openbao.org/) (CLI) | Client Vault / OpenBao (secrets) | | ● | | ✔ |
 | **Réseau et sécurité** | | | | | |
-| Wireshark | Analyse réseau | ○ | ● | | ✔ |
-| nmap | Scan réseau | | ● | | ✔ |
-| OpenSSH | Accès distant | ● | ● | | ✔ |
-| WireGuard / OpenVPN | VPN | ○ | ● | ○ | ✔ |
-| Trivy | Scan de vulnérabilités | ○ | ● | | ✔ |
+| [Wireshark](https://www.wireshark.org/) | Analyse réseau | ○ | ● | | ✔ |
+| [nmap](https://nmap.org/) | Scan réseau | | ● | | ✔ |
+| [OpenSSH](https://www.openssh.com/) | Accès distant | ● | ● | | ✔ |
+| [WireGuard](https://www.wireguard.com/) / [OpenVPN](https://openvpn.net/) | VPN | ○ | ● | ○ | ✔ |
+| [Trivy](https://trivy.dev/) | Scan de vulnérabilités | ○ | ● | | ✔ |
 | **Shell et productivité terminal** | | | | | |
-| Zsh + Oh My Zsh / Powerlevel10k | Shell | ● | ● | | ✔ |
-| tmux | Multiplexeur de terminal | ○ | ● | | ✔ |
-| fzf / ripgrep / bat | Outils CLI modernes | ● | ● | | ✔ |
+| [Zsh](https://www.zsh.org/) + [Oh My Zsh](https://ohmyz.sh/) / [Powerlevel10k](https://github.com/romkatv/powerlevel10k) | Shell | ● | ● | | ✔ |
+| [tmux](https://github.com/tmux/tmux/wiki) | Multiplexeur de terminal | ○ | ● | | ✔ |
+| [fzf](https://github.com/junegunn/fzf) / [ripgrep](https://github.com/BurntSushi/ripgrep) / [bat](https://github.com/sharkdp/bat) | Outils CLI modernes | ● | ● | | ✔ |
 | **Virtualisation** | | | | | |
-| VirtualBox | Machines virtuelles | ● | ● | ○ | ✔ |
-| KVM / QEMU / libvirt | Machines virtuelles | ○ | ● | | ✔ |
-| Vagrant | VM reproductibles | ○ | ○ | | — |
+| [VirtualBox](https://www.virtualbox.org/) | Machines virtuelles | ● | ● | ○ | ✔ |
+| [KVM](https://www.linux-kvm.org/) / [QEMU](https://www.qemu.org/) / [libvirt](https://libvirt.org/) | Machines virtuelles | ○ | ● | | ✔ |
+| [Vagrant](https://developer.hashicorp.com/vagrant) | VM reproductibles | ○ | ○ | | — |
 
 Remarques :
 - Les « vrais » logiciels à la mode non présents au SILL (Teams, Notion, Cursor, Figma, Postman, Terraform…)
