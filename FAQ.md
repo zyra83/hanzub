@@ -9,6 +9,7 @@ Problèmes fréquents rencontrés sous Ubuntu/Debian, avec leur cause probable e
 - [Disque et système de fichiers](#disque-et-système-de-fichiers)
 - [Démarrage et services](#démarrage-et-services)
 - [Affichage et session graphique](#affichage-et-session-graphique)
+- [Astuces GNOME](#astuces-gnome)
 - [Droits et sudo](#droits-et-sudo)
 - [VirtualBox](#virtualbox)
 - [Ansible / ce dépôt](#ansible--ce-dépôt)
@@ -260,6 +261,32 @@ Choisir la session « Ubuntu sur Xorg » à la connexion, ou installer `xdg-desk
 sudo apt install fonts-noto fonts-liberation ttf-mscorefonts-installer
 fc-cache -fv
 ```
+
+---
+
+## Astuces GNOME
+
+Réglages appliqués avec `gsettings`, à lancer dans la session de l'utilisateur concerné (sans `sudo`).
+
+### Afficher le numéro de semaine dans le calendrier
+
+```bash
+gsettings set org.gnome.desktop.calendar show-weekdate true
+```
+
+### Afficher les secondes dans l'horloge
+
+```bash
+gsettings set org.gnome.desktop.interface clock-show-seconds true
+```
+
+### Passer la police monospace par défaut en FiraCode
+
+```bash
+gsettings set org.gnome.desktop.interface monospace-font-name 'FiraCode Nerd Font 12'
+```
+
+La police `FiraCode Nerd Font` doit être installée (voir `fc-list | grep -i firacode`), sinon GNOME retombe sur une police par défaut.
 
 ---
 
